@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Deals - Shop | Your ultimate tech setup, just a tap away</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+  :root{
+    --primary:#ff7a1a;
+    --primary-dark:#e8590c;
+    --primary-light:#ffab5c;
+    --accent:#ff9433;
+    --bg:#0a0a0c;
+    --bg-alt:#151517;
+    --card:#18181b;
+    --text:#f5f5f7;
+    --muted:#9a9aa3;
+    --border:#2a2a2f;
+    --success:#22c55e;
+    --danger:#ef4444;
+    --whatsapp:#25D366;
+    --radius:16px;
+    --shadow:0 4px 18px rgba(0,0,0,0.45);
+    --shadow-lg:0 14px 40px rgba(0,0,0,0.6);
+    --glow:0 0 0 1px rgba(255,122,26,0.15), 0 8px 24px rgba(255,122,26,0.18);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(255,122,26,0.08), transparent 40%),
+      radial-gradient(circle at 85% 100%, rgba(255,122,26,0.05), transparent 45%),
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:70px;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+
+  /* HEADER */
+  header{
+    background:linear-gradient(160deg, #000000 0%, #141414 55%, var(--primary-dark) 150%);
+    color:#fff;
+    padding:26px 18px 30px;
+    text-align:center;
+    box-shadow:0 6px 24px rgba(0,0,0,0.5);
+    position:relative;
+    border-bottom:1px solid rgba(255,122,26,0.35);
+  }
+  header h1{
+    font-size:1.75rem;
+    font-weight:800;
+    letter-spacing:0.5px;
+    background:linear-gradient(90deg, #ffffff 0%, var(--primary-light) 60%, var(--primary) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    display:inline-block;
+  }
+  header p{
+    margin-top:8px;
+    font-size:0.9rem;
+    color:var(--muted);
+    font-weight:400;
+    font-style:italic;
+  }
+  .shop-meta{
+    margin-top:14px;
+    font-size:0.76rem;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .shop-meta span{
+    background:rgba(255,122,26,0.12);
+    border:1px solid rgba(255,122,26,0.3);
+    padding:5px 12px;
+    border-radius:999px;
+    color:var(--primary-light);
+  }
+
+  /* CATEGORY FILTER */
+  .filters{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding:16px 14px 8px;
+    -ms-overflow-style:none;
+    scrollbar-width:none;
+  }
+  .filters::-webkit-scrollbar{display:none;}
+  .filter-btn{
+    white-space:nowrap;
+    padding:9px 18px;
+    border-radius:999px;
+    border:1.5px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    font-size:0.85rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.2s ease;
+  }
+  .filter-btn.active{
+    background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-color:var(--primary);
+    color:#0a0a0c;
+    box-shadow:var(--glow);
+  }
+
+  /* PRODUCT GRID */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:14px;
+    padding:14px;
+  }
+  @media (min-width:640px){
+    .grid{grid-template-columns:repeat(3, 1fr);}
+  }
+  @media (min-width:960px){
+    .grid{grid-template-columns:repeat(4, 1fr);}
+  }
+  .product-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    transition:transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .product-card:active{transform:scale(0.98);}
+  .product-card:hover{border-color:rgba(255,122,26,0.5); box-shadow:var(--shadow-lg);}
+  .product-img-wrap{
+    width:100%;
+    aspect-ratio:1/1;
+    background:var(--bg-alt);
+    overflow:hidden;
+  }
+  .product-img-wrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .product-info{
+    padding:12px 12px 14px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+  }
+  .product-name{
+    font-size:0.95rem;
+    font-weight:700;
+    margin-bottom:2px;
+    color:var(--text);
+  }
+  .product-tagline{
+    font-size:0.72rem;
+    color:var(--muted);
+    font-style:italic;
+    margin-bottom:8px;
+    line-height:1.3;
+    min-height:2.2em;
+  }
+  .product-price{
+    font-size:1.1rem;
+    font-weight:800;
+    color:var(--primary);
+    margin-bottom:10px;
+  }
+  .add-btn{
+    margin-top:auto;
+    background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color:#0a0a0c;
+    border:none;
+    padding:10px 10px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:0.85rem;
+    cursor:pointer;
+    transition:filter 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  }
+  .add-btn:hover{box-shadow:var(--glow);}
+  .add-btn:active{transform:scale(0.95);}
+  .add-btn.added{background:linear-gradient(135deg, var(--success), #16a34a); color:#fff;}
+
+  /* STICKY CART BUTTON */
+  .cart-fab{
+    position:fixed;
+    bottom:22px;
+    right:18px;
+    background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color:#0a0a0c;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:var(--shadow-lg), var(--glow);
+    cursor:pointer;
+    z-index:50;
+    border:none;
+    transition:transform 0.15s ease;
+  }
+  .cart-fab:active{transform:scale(0.92);}
+  .cart-fab svg{width:26px; height:26px;}
+  .cart-badge{
+    position:absolute;
+    top:-4px;
+    right:-4px;
+    background:var(--danger);
+    color:#fff;
+    font-size:0.7rem;
+    font-weight:700;
+    border-radius:999px;
+    min-width:20px;
+    height:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 4px;
+    border:2px solid var(--bg);
+  }
+
+  /* WHATSAPP FAB */
+  .wa-fab{
+    position:fixed;
+    bottom:22px;
+    left:18px;
+    background:var(--whatsapp);
+    color:#fff;
+    width:52px;
+    height:52px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:var(--shadow-lg);
+    z-index:50;
+    border:2px solid rgba(255,255,255,0.08);
+    transition:transform 0.15s ease;
+  }
+  .wa-fab:active{transform:scale(0.92);}
+  .wa-fab svg{width:28px; height:28px;}
+
+  /* MODAL OVERLAY */
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.75);
+    z-index:100;
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+  }
+  .overlay.open{display:flex;}
+  @media (min-width:640px){
+    .overlay{align-items:center;}
+  }
+  .sheet{
+    background:var(--card);
+    border:1px solid var(--border);
+    width:100%;
+    max-width:520px;
+    max-height:88vh;
+    border-radius:20px 20px 0 0;
+    display:flex;
+    flex-direction:column;
+    animation:slideUp 0.25s ease;
+    box-shadow:0 -10px 40px rgba(0,0,0,0.5);
+  }
+  @media (min-width:640px){
+    .sheet{border-radius:20px;}
+  }
+  @keyframes slideUp{
+    from{transform:translateY(30px); opacity:0;}
+    to{transform:translateY(0); opacity:1;}
+  }
+  .sheet-header{
+    padding:16px 18px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .sheet-header h2{font-size:1.1rem; font-weight:700; color:var(--text);}
+  .close-btn{
+    background:none;
+    border:none;
+    font-size:1.4rem;
+    cursor:pointer;
+    color:var(--muted);
+    line-height:1;
+    padding:4px 8px;
+  }
+  .sheet-body{
+    padding:14px 18px;
+    overflow-y:auto;
+    flex:1;
+  }
+  .sheet-footer{
+    padding:14px 18px 18px;
+    border-top:1px solid var(--border);
+  }
+
+  /* CART ITEMS */
+  .cart-item{
+    display:flex;
+    gap:10px;
+    padding:12px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .cart-item:last-child{border-bottom:none;}
+  .cart-item img{
+    width:60px;
+    height:60px;
+    object-fit:cover;
+    border-radius:10px;
+    background:var(--bg-alt);
+    flex-shrink:0;
+  }
+  .cart-item-info{flex:1; min-width:0;}
+  .cart-item-name{font-weight:600; font-size:0.9rem; color:var(--text);}
+  .cart-item-price{font-size:0.8rem; color:var(--muted); margin-top:2px;}
+  .qty-controls{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:8px;
+  }
+  .qty-btn{
+    width:26px;
+    height:26px;
+    border-radius:8px;
+    border:1.5px solid var(--border);
+    background:var(--bg-alt);
+    color:var(--text);
+    font-weight:700;
+    cursor:pointer;
+    font-size:0.9rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .qty-val{font-weight:700; font-size:0.85rem; min-width:18px; text-align:center; color:var(--text);}
+  .item-subtotal{
+    font-weight:700;
+    font-size:0.9rem;
+    color:var(--primary);
+    white-space:nowrap;
+  }
+  .remove-btn{
+    background:none;
+    border:none;
+    color:var(--danger);
+    font-size:0.75rem;
+    cursor:pointer;
+    margin-top:6px;
+    font-weight:600;
+    padding:0;
+  }
+  .cart-item-right{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    justify-content:space-between;
+  }
+  .empty-cart{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--muted);
+  }
+  .empty-cart svg{width:60px; height:60px; margin-bottom:12px; opacity:0.4;}
+
+  .totals-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:0.85rem;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  .grand-total-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:1.05rem;
+    font-weight:800;
+    margin-top:6px;
+    padding-top:8px;
+    border-top:1px dashed var(--border);
+    margin-bottom:12px;
+    color:var(--text);
+  }
+  .grand-total-row span:last-child{color:var(--primary);}
+
+  .primary-btn{
+    width:100%;
+    background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color:#0a0a0c;
+    border:none;
+    padding:13px;
+    border-radius:12px;
+    font-weight:700;
+    font-size:0.95rem;
+    cursor:pointer;
+    transition:filter 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  }
+  .primary-btn:hover{box-shadow:var(--glow);}
+  .primary-btn:active{transform:scale(0.98);}
+  .primary-btn:disabled{background:var(--border); color:var(--muted); cursor:not-allowed; box-shadow:none;}
+
+  /* FORM */
+  .form-group{margin-bottom:14px;}
+  .form-group label{
+    display:block;
+    font-size:0.82rem;
+    font-weight:600;
+    margin-bottom:6px;
+    color:var(--text);
+  }
+  .form-group label .req{color:var(--danger);}
+  .form-group input, .form-group textarea{
+    width:100%;
+    padding:11px 12px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    background:var(--bg-alt);
+    color:var(--text);
+    font-family:inherit;
+    font-size:0.9rem;
+    outline:none;
+    transition:border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder{color:#6b6b73;}
+  .form-group input:focus, .form-group textarea:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(255,122,26,0.15);
+  }
+  .form-group textarea{resize:vertical; min-height:70px;}
+  .order-summary-box{
+    background:var(--bg-alt);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:12px 14px;
+    margin-bottom:16px;
+    font-size:0.8rem;
+    color:var(--muted);
+    line-height:1.6;
+  }
+  .order-summary-box b{color:var(--primary-light);}
+
+  /* CONFIRMATION */
+  .confirm-box{
+    text-align:center;
+    padding:20px 10px;
+  }
+  .confirm-box .tick{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    background:rgba(34,197,94,0.15);
+    color:var(--success);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 16px;
+    border:1px solid rgba(34,197,94,0.35);
+  }
+  .confirm-box .tick svg{width:36px; height:36px;}
+  .confirm-box h3{font-size:1.15rem; margin-bottom:8px; color:var(--text);}
+  .confirm-box p{color:var(--muted); font-size:0.9rem; margin-bottom:18px; line-height:1.5;}
+  .wa-confirm-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--whatsapp);
+    color:#fff;
+    padding:12px 20px;
+    border-radius:12px;
+    font-weight:700;
+    font-size:0.9rem;
+  }
+  .wa-confirm-btn svg{width:20px; height:20px;}
+
+  .error-text{
+    color:var(--danger);
+    font-size:0.75rem;
+    margin-top:4px;
+    display:none;
+  }
+  .form-group.error input, .form-group.error textarea{border-color:var(--danger);}
+  .form-group.error .error-text{display:block;}
+
+  footer{
+    text-align:center;
+    padding:20px;
+    color:var(--muted);
+    font-size:0.75rem;
+    border-top:1px solid var(--border);
+    margin-top:10px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Data Deals - Shop</h1>
+  <p>"Your ultimate tech setup, just a tap away"</p>
+  <div class="shop-meta">
+    <span>📍 Hinjewadi Phase 1, Pune</span>
+    <span>📞 8983031819</span>
+  </div>
+</header>
+
+<div class="filters" id="filters"></div>
+
+<main class="grid" id="productGrid"></main>
+
+<footer>© 2026 Data Deals - Shop. Order online, we'll confirm on WhatsApp.</footer>
+
+<!-- Floating WhatsApp Button -->
+<a class="wa-fab" id="waFab" href="https://wa.me/918983031819" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 3C9.376 3 4 8.373 4 15c0 2.34.66 4.523 1.804 6.383L4 29l7.822-1.76A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3zm6.988 16.845c-.294.824-1.464 1.51-2.393 1.706-.637.135-1.47.243-4.27-.917-3.58-1.482-5.884-5.106-6.063-5.343-.177-.236-1.45-1.93-1.45-3.68 0-1.75.917-2.61 1.242-2.967.325-.357.71-.446.947-.446.236 0 .473.002.68.012.219.01.512-.083.8.61.294.71 1 2.46 1.088 2.64.089.18.148.39.03.626-.118.236-.178.383-.355.59-.177.206-.373.46-.532.618-.177.177-.362.368-.156.723.207.354.918 1.514 1.97 2.452 1.354 1.207 2.496 1.582 2.85 1.76.354.177.561.148.768-.089.207-.236.887-1.034 1.123-1.39.236-.354.473-.294.798-.177.325.118 2.062.972 2.416 1.148.354.177.59.265.68.412.088.147.088.856-.207 1.68z"/></svg>
+</a>
+
+<!-- Sticky Cart Button -->
+<button class="cart-fab" id="cartFab" aria-label="Open cart">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+  <span class="cart-badge" id="cartBadge" style="display:none;">0</span>
+</button>
+
+<!-- CART MODAL -->
+<div class="overlay" id="cartOverlay">
+  <div class="sheet">
+    <div class="sheet-header">
+      <h2>Your Cart</h2>
+      <button class="close-btn" id="closeCart">&times;</button>
+    </div>
+    <div class="sheet-body" id="cartBody"></div>
+    <div class="sheet-footer" id="cartFooter" style="display:none;">
+      <div class="totals-row"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+      <div class="totals-row"><span>GST (18%)</span><span id="cartGST">₹0</span></div>
+      <div class="grand-total-row">
+        <span>Total (incl. GST)</span>
+        <span id="grandTotal">₹0</span>
+      </div>
+      <button class="primary-btn" id="placeOrderBtn">Place Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="overlay" id="checkoutOverlay">
+  <div class="sheet">
+    <div class="sheet-header">
+      <h2>Checkout</h2>
+      <button class="close-btn" id="closeCheckout">&times;</button>
+    </div>
+    <div class="sheet-body">
+      <div class="order-summary-box" id="checkoutSummary"></div>
+      <form id="orderForm">
+        <div class="form-group" id="grp-name">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" id="custName" placeholder="e.g. Rahul Sharma" required>
+          <div class="error-text">Please enter your name</div>
+        </div>
+        <div class="form-group" id="grp-phone">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" id="custPhone" placeholder="e.g. 9876543210" required>
+          <div class="error-text">Please enter a valid 10-digit phone number</div>
+        </div>
+        <div class="form-group" id="grp-email">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" id="custEmail" placeholder="e.g. you@example.com" required>
+          <div class="error-text">Please enter a valid email address — your GST bill will be sent here</div>
+        </div>
+        <div class="form-group" id="grp-address">
+          <label>Delivery Address <span class="req">*</span></label>
+          <textarea id="custAddress" placeholder="House no, street, area, landmark..." required></textarea>
+          <div class="error-text">Please enter your delivery address</div>
+        </div>
+        <div class="form-group">
+          <label>Special Instructions (optional)</label>
+          <textarea id="custInstructions" placeholder="Any special requests..."></textarea>
+        </div>
+        <!-- Hidden fields compiled at submit time -->
+        <input type="hidden" name="_subject" id="formSubject">
+        <input type="hidden" name="Order Summary" id="orderSummaryField">
+        <input type="hidden" name="Subtotal" id="subtotalField">
+        <input type="hidden" name="GST (18%)" id="gstField">
+        <input type="hidden" name="Grand Total (incl. GST)" id="grandTotalField">
+        <!-- "email" is a reserved Formspree field name: Formspree auto-sends
+             a confirmation copy of this submission (the GST bill) to
+             whatever address is in it -->
+        <input type="hidden" name="email" id="replyToEmailField">
+      </form>
+    </div>
+    <div class="sheet-footer">
+      <button class="primary-btn" id="submitOrderBtn">Confirm &amp; Send Order</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRMATION MODAL -->
+<div class="overlay" id="confirmOverlay">
+  <div class="sheet">
+    <div class="sheet-header">
+      <h2>Order Status</h2>
+      <button class="close-btn" id="closeConfirm">&times;</button>
+    </div>
+    <div class="sheet-body">
+      <div class="confirm-box">
+        <div class="tick">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h3>Order placed!</h3>
+        <p>Data Deals will contact you on WhatsApp to confirm your order, availability, pricing, and delivery. A bill with 18% GST has been emailed to the address you provided.</p>
+        <a class="wa-confirm-btn" href="https://wa.me/918983031819" target="_blank" rel="noopener">
+          <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16.004 3C9.376 3 4 8.373 4 15c0 2.34.66 4.523 1.804 6.383L4 29l7.822-1.76A11.94 11.94 0 0 0 16.004 27C22.63 27 28 21.627 28 15S22.63 3 16.004 3zm6.988 16.845c-.294.824-1.464 1.51-2.393 1.706-.637.135-1.47.243-4.27-.917-3.58-1.482-5.884-5.106-6.063-5.343-.177-.236-1.45-1.93-1.45-3.68 0-1.75.917-2.61 1.242-2.967.325-.357.71-.446.947-.446.236 0 .473.002.68.012.219.01.512-.083.8.61.294.71 1 2.46 1.088 2.64.089.18.148.39.03.626-.118.236-.178.383-.355.59-.177.206-.373.46-.532.618-.177.177-.362.368-.156.723.207.354.918 1.514 1.97 2.452 1.354 1.207 2.496 1.582 2.85 1.76.354.177.561.148.768-.089.207-.236.887-1.034 1.123-1.39.236-.354.473-.294.798-.177.325.118 2.062.972 2.416 1.148.354.177.59.265.68.412.088.147.088.856-.207 1.68z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ CONFIG ============ */
+  const SHOP_NAME = "Data Deals - Shop";
+  const SHOP_PHONE = "8983031819";
+  const WHATSAPP_LINK = "https://wa.me/918983031819";
+  const FORMSPREE_ACTION = "https://formspree.io/f/mykqlaky";
+  const CURRENCY = "₹";
+  const GST_RATE = 0.18; // 18% GST applied on the bill sent to the customer
+
+  /* ---- EmailJS CONFIG (sends the GST bill to the CUSTOMER) ----
+     Formspree above still handles the owner-side order notification/archive.
+     EmailJS here is used ONLY to email the customer their itemized bill.
+
+     Setup steps:
+     1. Create a free account at https://www.emailjs.com (free tier: 200 emails/month)
+     2. Email Services tab -> Add New Service (e.g. connect your Gmail)
+        -> copy the Service ID below.
+     3. Email Templates tab -> Create New Template -> this is the CUSTOMER's bill.
+        - Set "To email" to {{customer_email}}
+        - Build the email body using these variables:
+          {{customer_name}} {{customer_phone}} {{customer_address}}
+          {{customer_instructions}} {{order_summary}} {{subtotal}}
+          {{gst_amount}} {{grand_total}} {{invoice_no}} {{invoice_date}}
+          {{shop_name}}
+        -> copy the Template ID below.
+     4. Account -> API Keys -> copy your Public Key below.
+  */
+  const EMAILJS_PUBLIC_KEY          = "Nh8PDK1eaDezF6PZw";
+  const EMAILJS_SERVICE_ID          = "service_dkjgfgj";
+  const EMAILJS_CUSTOMER_TEMPLATE_ID = "template_hjbixj9";
+
+  const EMAILJS_READY = !!(window.emailjs && EMAILJS_PUBLIC_KEY !== "YOUR_EMAILJS_PUBLIC_KEY");
+  if (EMAILJS_READY) {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
+
+  const PRODUCTS = [
+    {
+      id: "p1",
+      name: "CPU",
+      price: 9999,
+      category: "Computer Hardware",
+      img: "https://i.ibb.co/zDGV6Lz/Screenshot-2026-07-04-173815.png",
+      tagline: "Faster and Smoother"
+    },
+    {
+      id: "p2",
+      name: "Mouse",
+      price: 369,
+      category: "Computer Hardware",
+      img: "https://i.ibb.co/3m93J7Zk/Screenshot-2026-07-04-173936.png",
+      tagline: "Move Fast Just Like Butter"
+    },
+    {
+      id: "p3",
+      name: "Laptop",
+      price: 69999,
+      category: "Computer Hardware",
+      img: "https://i.ibb.co/0jj801QH/Screenshot-2026-07-04-174130.png",
+      tagline: "Powered by excessive amounts of caffeine."
+    },
+    {
+      id: "p4",
+      name: "Keyboard",
+      price: 4000,
+      category: "Computer Hardware",
+      img: "https://i.ibb.co/S437K94C/Screenshot-2026-07-04-174055.png",
+      tagline: "There is U and I in this keyboard, but we're out of space"
+    },
+    {
+      id: "p5",
+      name: "Desktop",
+      price: 15151,
+      category: "Computer Hardware",
+      img: "https://i.ibb.co/QFgr8Msw/Screenshot-2026-07-04-174014.png",
+      tagline: "Professional Tab Hoarder."
+    }
+  ];
+
+  const CART_KEY = "dataDeals_cart_v1";
+  let cart = loadCart();
+  let currentFilter = "All";
+
+  /* ============ INIT ============ */
+  document.addEventListener("DOMContentLoaded", () => {
+    renderFilters();
+    renderProducts();
+    updateCartBadge();
+
+    document.getElementById("cartFab").addEventListener("click", openCart);
+    document.getElementById("closeCart").addEventListener("click", () => toggleOverlay("cartOverlay", false));
+    document.getElementById("cartOverlay").addEventListener("click", (e) => {
+      if (e.target.id === "cartOverlay") toggleOverlay("cartOverlay", false);
+    });
+
+    document.getElementById("closeCheckout").addEventListener("click", () => toggleOverlay("checkoutOverlay", false));
+    document.getElementById("checkoutOverlay").addEventListener("click", (e) => {
+      if (e.target.id === "checkoutOverlay") toggleOverlay("checkoutOverlay", false);
+    });
+
+    document.getElementById("closeConfirm").addEventListener("click", () => toggleOverlay("confirmOverlay", false));
+    document.getElementById("confirmOverlay").addEventListener("click", (e) => {
+      if (e.target.id === "confirmOverlay") toggleOverlay("confirmOverlay", false);
+    });
+
+    document.getElementById("placeOrderBtn").addEventListener("click", openCheckout);
+    document.getElementById("submitOrderBtn").addEventListener("click", submitOrder);
+  });
+
+  /* ============ CART STORAGE ============ */
+  function loadCart(){
+    try{
+      const raw = localStorage.getItem(CART_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){
+      return {};
+    }
+  }
+  function saveCart(){
+    try{
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }catch(e){ /* storage unavailable, fail silently */ }
+  }
+
+  /* ============ RENDER: FILTERS ============ */
+  function renderFilters(){
+    const categories = ["All", ...new Set(PRODUCTS.map(p => p.category))];
+    const wrap = document.getElementById("filters");
+    wrap.innerHTML = categories.map(cat => `
+      <button class="filter-btn ${cat === currentFilter ? 'active' : ''}" data-cat="${escapeHtml(cat)}">${escapeHtml(cat)}</button>
+    `).join("");
+    wrap.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentFilter = btn.getAttribute("data-cat");
+        renderFilters();
+        renderProducts();
+      });
+    });
+  }
+
+  /* ============ RENDER: PRODUCTS ============ */
+  function renderProducts(){
+    const grid = document.getElementById("productGrid");
+    const list = currentFilter === "All" ? PRODUCTS : PRODUCTS.filter(p => p.category === currentFilter);
+    grid.innerHTML = list.map(p => `
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="${p.img}" alt="${escapeHtml(p.name)} - ${escapeHtml(p.category)}" loading="lazy">
+        </div>
+        <div class="product-info">
+          <div class="product-name">${escapeHtml(p.name)}</div>
+          <div class="product-tagline">"${escapeHtml(p.tagline)}"</div>
+          <div class="product-price">${CURRENCY}${p.price.toLocaleString('en-IN')}</div>
+          <button class="add-btn" data-id="${p.id}">Add to Cart</button>
+        </div>
+      </div>
+    `).join("");
+
+    grid.querySelectorAll(".add-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        addToCart(btn.getAttribute("data-id"));
+        btn.textContent = "Added ✓";
+        btn.classList.add("added");
+        setTimeout(() => {
+          btn.textContent = "Add to Cart";
+          btn.classList.remove("added");
+        }, 900);
+      });
+    });
+  }
+
+  /* ============ CART LOGIC ============ */
+  function addToCart(id){
+    if (cart[id]) {
+      cart[id].qty += 1;
+    } else {
+      cart[id] = { qty: 1 };
+    }
+    saveCart();
+    updateCartBadge();
+  }
+
+  function changeQty(id, delta){
+    if (!cart[id]) return;
+    cart[id].qty += delta;
+    if (cart[id].qty <= 0) {
+      delete cart[id];
+    }
+    saveCart();
+    updateCartBadge();
+    renderCart();
+  }
+
+  function removeFromCart(id){
+    delete cart[id];
+    saveCart();
+    updateCartBadge();
+    renderCart();
+  }
+
+  function getCartItems(){
+    return Object.keys(cart).map(id => {
+      const product = PRODUCTS.find(p => p.id === id);
+      if (!product) return null;
+      return { ...product, qty: cart[id].qty };
+    }).filter(Boolean);
+  }
+
+  function getCartCount(){
+    return Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
+  }
+
+  function getCartTotal(){
+    return getCartItems().reduce((sum, item) => sum + (item.price * item.qty), 0);
+  }
+
+  function getGSTAmount(){
+    return Math.round(getCartTotal() * GST_RATE);
+  }
+
+  function getGrandTotalWithGST(){
+    return getCartTotal() + getGSTAmount();
+  }
+
+  function updateCartBadge(){
+    const count = getCartCount();
+    const badge = document.getElementById("cartBadge");
+    if (count > 0) {
+      badge.style.display = "flex";
+      badge.textContent = count;
+    } else {
+      badge.style.display = "none";
+    }
+  }
+
+  /* ============ RENDER: CART MODAL ============ */
+  function renderCart(){
+    const items = getCartItems();
+    const body = document.getElementById("cartBody");
+    const footer = document.getElementById("cartFooter");
+
+    if (items.length === 0){
+      body.innerHTML = `
+        <div class="empty-cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <p>Your cart is empty.<br>Add some products to get started!</p>
+        </div>
+      `;
+      footer.style.display = "none";
+      return;
+    }
+
+    body.innerHTML = items.map(item => `
+      <div class="cart-item">
+        <img src="${item.img}" alt="${escapeHtml(item.name)}" loading="lazy">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${escapeHtml(item.name)}</div>
+          <div class="cart-item-price">${CURRENCY}${item.price.toLocaleString('en-IN')} each</div>
+          <div class="qty-controls">
+            <button class="qty-btn" data-action="dec" data-id="${item.id}">−</button>
+            <span class="qty-val">${item.qty}</span>
+            <button class="qty-btn" data-action="inc" data-id="${item.id}">+</button>
+          </div>
+        </div>
+        <div class="cart-item-right">
+          <div class="item-subtotal">${CURRENCY}${(item.price * item.qty).toLocaleString('en-IN')}</div>
+          <button class="remove-btn" data-action="remove" data-id="${item.id}">Remove</button>
+        </div>
+      </div>
+    `).join("");
+
+    body.querySelectorAll("[data-action='inc']").forEach(btn =>
+      btn.addEventListener("click", () => changeQty(btn.getAttribute("data-id"), 1))
+    );
+    body.querySelectorAll("[data-action='dec']").forEach(btn =>
+      btn.addEventListener("click", () => changeQty(btn.getAttribute("data-id"), -1))
+    );
+    body.querySelectorAll("[data-action='remove']").forEach(btn =>
+      btn.addEventListener("click", () => removeFromCart(btn.getAttribute("data-id")))
+    );
+
+    footer.style.display = "block";
+    document.getElementById("cartSubtotal").textContent = `${CURRENCY}${getCartTotal().toLocaleString('en-IN')}`;
+    document.getElementById("cartGST").textContent = `${CURRENCY}${getGSTAmount().toLocaleString('en-IN')}`;
+    document.getElementById("grandTotal").textContent = `${CURRENCY}${getGrandTotalWithGST().toLocaleString('en-IN')}`;
+  }
+
+  function openCart(){
+    renderCart();
+    toggleOverlay("cartOverlay", true);
+  }
+
+  /* ============ CHECKOUT ============ */
+  function openCheckout(){
+    const items = getCartItems();
+    if (items.length === 0) return;
+
+    const summaryHtml = items.map(item =>
+      `${escapeHtml(item.name)} × ${item.qty} = ${CURRENCY}${(item.price*item.qty).toLocaleString('en-IN')}`
+    ).join("<br>");
+    document.getElementById("checkoutSummary").innerHTML =
+      `<b>Order Summary:</b><br>${summaryHtml}<br><br>` +
+      `Subtotal: ${CURRENCY}${getCartTotal().toLocaleString('en-IN')}<br>` +
+      `GST (18%): ${CURRENCY}${getGSTAmount().toLocaleString('en-IN')}<br>` +
+      `<b>Total (incl. GST): ${CURRENCY}${getGrandTotalWithGST().toLocaleString('en-IN')}</b>` +
+      `<br><br><span style="font-size:0.72rem;">A detailed bill will be emailed to the address you enter below.</span>`;
+
+    toggleOverlay("cartOverlay", false);
+    toggleOverlay("checkoutOverlay", true);
+  }
+
+  function validateField(id, condition){
+    const group = document.getElementById(id);
+    if (!condition) {
+      group.classList.add("error");
+      return false;
+    } else {
+      group.classList.remove("error");
+      return true;
+    }
+  }
+
+  function submitOrder(){
+    const name = document.getElementById("custName").value.trim();
+    const phone = document.getElementById("custPhone").value.trim();
+    const email = document.getElementById("custEmail").value.trim();
+    const address = document.getElementById("custAddress").value.trim();
+    const instructions = document.getElementById("custInstructions").value.trim();
+
+    const validName = validateField("grp-name", name.length > 0);
+    const validPhone = validateField("grp-phone", /^\d{10}$/.test(phone.replace(/\D/g,'')));
+    const validEmail = validateField("grp-email", /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+    const validAddress = validateField("grp-address", address.length > 0);
+
+    if (!validName || !validPhone || !validEmail || !validAddress) return;
+
+    const items = getCartItems();
+    if (items.length === 0) return;
+
+    const submitBtn = document.getElementById("submitOrderBtn");
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+
+    const subtotal = getCartTotal();
+    const gstAmount = getGSTAmount();
+    const grandTotal = getGrandTotalWithGST();
+    const invoiceNo = `DD-${Date.now().toString().slice(-8)}`;
+    const invoiceDate = new Date().toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+
+    // Build a complete, human-readable order + GST bill summary
+    let summaryLines = [];
+    summaryLines.push(`${SHOP_NAME} — TAX INVOICE`);
+    summaryLines.push(`Invoice No: ${invoiceNo}   Date: ${invoiceDate}`);
+    summaryLines.push(`--------------------------------`);
+    items.forEach(item => {
+      summaryLines.push(`${item.name} | Qty: ${item.qty} | Price: ${CURRENCY}${item.price.toLocaleString('en-IN')} | Amount: ${CURRENCY}${(item.price*item.qty).toLocaleString('en-IN')}`);
+    });
+    summaryLines.push(`--------------------------------`);
+    summaryLines.push(`Subtotal: ${CURRENCY}${subtotal.toLocaleString('en-IN')}`);
+    summaryLines.push(`GST (18%): ${CURRENCY}${gstAmount.toLocaleString('en-IN')}`);
+    summaryLines.push(`GRAND TOTAL (incl. GST): ${CURRENCY}${grandTotal.toLocaleString('en-IN')}`);
+    summaryLines.push(``);
+    summaryLines.push(`CUSTOMER DETAILS:`);
+    summaryLines.push(`Name: ${name}`);
+    summaryLines.push(`Phone: ${phone}`);
+    summaryLines.push(`Email: ${email}`);
+    summaryLines.push(`Address: ${address}`);
+    summaryLines.push(`Instructions: ${instructions || "None"}`);
+    summaryLines.push(``);
+    summaryLines.push(`Note: This is a provisional bill. ${SHOP_NAME} will contact you on WhatsApp to confirm availability, pricing, and delivery before dispatch.`);
+
+    const fullSummary = summaryLines.join("\n");
+
+    // Populate hidden fields (visible in the raw Formspree submission too)
+    document.getElementById("formSubject").value = `New Order & GST Bill for ${name} - ${SHOP_NAME}`;
+    document.getElementById("orderSummaryField").value = fullSummary;
+    document.getElementById("subtotalField").value = `${CURRENCY}${subtotal.toLocaleString('en-IN')}`;
+    document.getElementById("gstField").value = `${CURRENCY}${gstAmount.toLocaleString('en-IN')}`;
+    document.getElementById("grandTotalField").value = `${CURRENCY}${grandTotal.toLocaleString('en-IN')}`;
+    document.getElementById("replyToEmailField").value = email;
+
+    // Build FormData with readable field names for Formspree (owner-side
+    // order notification/archive). "email" sets the Reply-To header on
+    // the email you receive, so you can hit "Reply" to reach the customer.
+    const formData = new FormData();
+    formData.append("_subject", `New Order & GST Bill for ${name} - ${SHOP_NAME}`);
+    formData.append("email", email);
+    formData.append("Customer Name", name);
+    formData.append("Phone Number", phone);
+    formData.append("Customer Email", email);
+    formData.append("Delivery Address", address);
+    formData.append("Special Instructions", instructions || "None");
+    formData.append("Order Summary / GST Bill", fullSummary);
+    formData.append("Subtotal", `${CURRENCY}${subtotal.toLocaleString('en-IN')}`);
+    formData.append("GST (18%)", `${CURRENCY}${gstAmount.toLocaleString('en-IN')}`);
+    formData.append("Grand Total (incl. GST)", `${CURRENCY}${grandTotal.toLocaleString('en-IN')}`);
+
+    // Template params for EmailJS (customer-side GST bill email)
+    const billParams = {
+      customer_name: name,
+      customer_phone: phone,
+      customer_email: email,
+      customer_address: address,
+      customer_instructions: instructions || "None",
+      order_summary: fullSummary,
+      subtotal: `${CURRENCY}${subtotal.toLocaleString('en-IN')}`,
+      gst_amount: `${CURRENCY}${gstAmount.toLocaleString('en-IN')}`,
+      grand_total: `${CURRENCY}${grandTotal.toLocaleString('en-IN')}`,
+      invoice_no: invoiceNo,
+      invoice_date: invoiceDate,
+      shop_name: SHOP_NAME
+    };
+
+    const formspreeSubmission = fetch(FORMSPREE_ACTION, {
+      method: "POST",
+      body: formData,
+      headers: { "Accept": "application/json" }
+    }).then(response => {
+      if (!response.ok) throw new Error("Formspree submission failed");
+      return response;
+    });
+
+    // Only attempt to email the bill if EmailJS has actually been configured;
+    // otherwise skip silently so the order can still go through
+    const billEmail = EMAILJS_READY
+      ? emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CUSTOMER_TEMPLATE_ID, billParams)
+      : Promise.resolve({ skipped: true });
+
+    Promise.allSettled([formspreeSubmission, billEmail]).then(([orderResult, emailResult]) => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Confirm & Send Order";
+
+      if (orderResult.status !== "fulfilled") {
+        alert("Something went wrong sending your order. Please try again, or contact us directly on WhatsApp.");
+        return;
+      }
+
+      if (emailResult.status === "rejected") {
+        console.warn("Customer bill email failed to send:", emailResult.reason);
+      } else if (!EMAILJS_READY) {
+        console.warn("EmailJS is not configured yet — customer bill email was not sent.");
+      }
+
+      // Order placed successfully regardless of bill-email outcome
+      cart = {};
+      saveCart();
+      updateCartBadge();
+      document.getElementById("orderForm").reset();
+      toggleOverlay("checkoutOverlay", false);
+      toggleOverlay("confirmOverlay", true);
+    });
+  }
+
+  /* ============ UTIL ============ */
+  function toggleOverlay(id, show){
+    const el = document.getElementById(id);
+    if (show) el.classList.add("open");
+    else el.classList.remove("open");
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+})();
+</script>
+</body>
+</html>
